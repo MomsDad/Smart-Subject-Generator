@@ -12,7 +12,7 @@ cd Smart-Subject-Generator
 python -m venv venv
 # WINDOWS:
 venv\Scripts\activate
-# Mac
+# Mac  :
 source venv/bin/activate
 
 4. Install our dependencies!
@@ -33,7 +33,7 @@ All work should be done inside the app/main.py file or by adding additional file
 Runs FastApi on Start using port 8000(default)
 Here's a breakdown of fastapi it's gonna be simple ! https://realpython.com/fastapi-python-web-apis/
 
-# example below of fastapi usage, this will allow you to visit on you local machine the message Hello, World. I added this to our code for our setup so we can see how it works!
+example below of fastapi usage, this will allow you to visit on you local machine the message Hello, World. I added this to our code for our setup so we can see how it works!
 
 from fastapi import FastAPI
 
@@ -48,7 +48,8 @@ def read_root():
 This is the server that runs FastApi
 Here's a breakdown of it but it's not that important to learn https://www.uvicorn.org/
 
-# example below of how we will run our main.py
+example below of how we will run our main.py:
+
 uvicorn app.main:app --reload
 
 # langchain
@@ -60,7 +61,7 @@ Helps us define and validate our data in our FastApi App it will ensure that the
 For example for our project we will use the pydantic function to validate the content in our emails to our API for subject generation
 If you scroll to pydantic examples it shows exactly how it works, https://docs.pydantic.dev/latest/#why-use-pydantic
 
-# example below included in main.py
+example below included in main.py:
 
 from pydantic import BaseModel
 
