@@ -24,7 +24,7 @@ uvicorn app.main:app --reload
 6. Confirm it all works by going to this url on any browser you would like!
 http://localhost:8000/
 
-You will see the message on your browser, pretty cool stuff! This is our entire key to our project, work in main.py or add more files and create a web application for our subject generation.
+You will see the message on your browser, pretty cool stuff! This is the entire key to our project, work in main.py or add more files and create a web application for our subject generation.
 
 ### Project Workflow
 All work should be done inside the app/main.py file or by adding additional files as needed.
@@ -55,11 +55,11 @@ example below of how we will run our main.py:
 uvicorn app.main:app --reload
 
 # langchain
-This is a library it will help us interfrate our LLMs into our project basically langchain is a way to interact with Chatgpt like how a person would send a chat message!
+This is a library that will help us integrate our LLMs into our project basically langchain is a way to interact with Chatgpt like how a person would send a chat message!
 Here is a guide on langchain for simple integeration: https://python.langchain.com/docs/tutorials/llm_chain/
 
 # pydantic
-Helps us define and validate our data in our FastApi App it will ensure that the data we are feeing in correct and formatted
+Helps us define and validate our data in our FastApi App it will ensure that the data we are filling is correct and formatted
 For example for our project we will use the pydantic function to validate the content in our emails to our API for subject generation
 If you scroll to pydantic examples it shows exactly how it works, https://docs.pydantic.dev/latest/#why-use-pydantic
 
