@@ -16,7 +16,7 @@ def read_root():
 def generate_subject(email_body: EmailBody):
     email_content = email_body.content
     
-    # I haven't looked into the specifics on how to complete this so I wrote some placegolder logic
+    # I haven't looked into the specifics on how to complete this so I wrote some placeholder logic
     # in future, we can use LangChain or anything else
     subject_suggestions = [
         "Re: " + email_content[:50],  # Example: Taking the first 50 chars of email content
