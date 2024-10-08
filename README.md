@@ -18,7 +18,9 @@ source venv/bin/activate
 4. Install our dependencies!
 pip install -r requirements.txt
 5. Run a test to make sure it works by running our fastapi
+   
 uvicorn app.main:app --reload
+
 6. Confirm it all works by going to this url on any browser you would like!
 http://localhost:8000/
 
