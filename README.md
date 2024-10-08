@@ -8,6 +8,7 @@ Subject Generator for CSCI
 
    
 git clone https://github.com/MomsDad/Smart-Subject-Generator.git
+
 cd Smart-Subject-Generator
 
 3. Setup our virtual environment
