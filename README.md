@@ -5,6 +5,8 @@ Subject Generator for CSCI
 
 1. The First Step is installling Python 3.8 + if you don't have that I have attached that here https://www.python.org/downloads/
 2. Use Git to Clone the project repository and navigate to our project directory
+
+   
 git clone https://github.com/MomsDad/Smart-Subject-Generator.git
 cd Smart-Subject-Generator
 
