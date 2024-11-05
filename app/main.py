@@ -1,27 +1,71 @@
+import os
 from fastapi import FastAPI
 from pydantic import BaseModel
+from langchain import LLMChain, PromptTemplate
+from langchain.chat_models import ChatOpenAI
+from dotenv import load_dotenv
+from fastapi.middleware.cors import CORSMiddleware
+import logging
 
+# Set up logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# Load environment variables from the .env file
+load_dotenv()
+
+# Access the OpenAI API key
+openai_api_key = os.getenv("OPENAI_API_KEY")
+
+# Initialize the ChatOpenAI model with our API key
+chat_model = ChatOpenAI(api_key=openai_api_key, model="gpt-3.5-turbo")
+
+# Define the FastAPI app
 app = FastAPI()
 
-# here's a really good example of how this works using pydantic, https://docs.pydantic.dev/latest/#pydantic-examples scroll to pydantic examples
+# Enable CORS for all origins (for development purposes)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins, adjust this if needed
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Define the data model for the email content
 class EmailBody(BaseModel):
     content: str
 
+# Define a prompt template for generating subject lines
+prompt_template = PromptTemplate(
+    input_variables=["email_content"],
+    template="Generate three engaging subject lines for the following email content:\n{email_content}"
+)
+
+# Create an LLMChain to link the prompt and the ChatGPT model
+subject_generation_chain = LLMChain(
+    llm=chat_model,
+    prompt=prompt_template
+)
+
+# Root endpoint for basic connectivity
 @app.get("/")
 def read_root():
     return {"message": "Welcome to the Smart Subject Generator!"}
 
-# this is our main indication of our project we want to generate email subject lines
+# Main endpoint for generating subject lines
 @app.post("/generate")
-def generate_subject(email_body: EmailBody):
+async def generate_subject(email_body: EmailBody):
     email_content = email_body.content
-    
-    # I haven't looked into the specifics on how to complete this so I wrote some placeholder logic
-    # in future, we can use LangChain or anything else
-    subject_suggestions = [
-        "Re: " + email_content[:50],  # Example: Taking the first 50 chars of email content
-        "Important: " + email_content.split()[0],  # Example: Adding first word of the content
-        "Don't Miss: " + email_content[:30]  # Example: First 30 chars of content
-    ]
-    
+    logger.info("Generating subject for content: %s", email_content)
+
+    try:
+        result = subject_generation_chain({"email_content": email_content})
+        logger.info("Received result: %s", result)
+    except Exception as e:
+        logger.error("Error in generating subject: %s", e)
+        return {"error": str(e)}
+
+    # Split the `text` field by newline to create a list of suggestions
+    subject_suggestions = [line.strip() for line in result["text"].split("\n") if line.strip()]
     return {"suggestions": subject_suggestions}
