@@ -1,4 +1,7 @@
 fastapi
 uvicorn
+langflow
 langchain
+openai
 pydantic
+python-dotenv

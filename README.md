@@ -76,3 +76,16 @@ class EmailContent(BaseModel):
 the above code will very simply make sure that whatever content is being entered in is indeed a STRING!
 
 
+# ADDED How to USE
+
+1. **Clone the Repository:**
+   ```bash
+   git clone https://your-repository-url.git
+   cd Smart-Subject-Generator
+
+python -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
+OPENAI_API_KEY=your-openai-api-key
+uvicorn app.main:app --reload
+http://127.0.0.1:8000 I WOULD JUST USER THE USERINTERFACE.html !
