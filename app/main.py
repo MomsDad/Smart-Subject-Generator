@@ -38,8 +38,8 @@ class EmailBody(BaseModel):
 
 # define a prompt template for generating subject lines
 prompt_template = PromptTemplate(
-    input_variables=["email_content"],
-    template="Generate three engaging subject lines for the following email content:\n{email_content}"
+    input_variables=["emailContent"],
+    template="Generate three engaging subject lines for the following email content:\n{emailContent}"
 )
 
 # create an LLMChain to link the prompt and the ChatGPT model
@@ -56,11 +56,11 @@ def read_root():
 # main endpoint for generating subject lines
 @app.post("/generate")
 async def generate_subject(email_body: EmailBody):
-    email_content = email_body.content
-    logger.info("Generating subject for content: %s", email_content)
+    emailContent = email_body.content
+    logger.info("Generating subject for content: %s", emailContent)
 
     try:
-        result = subject_generation_chain({"email_content": email_content})
+        result = subject_generation_chain({"emailContent": emailContent})
         logger.info("Received result: %s", result)
     except Exception as e:
         logger.error("Error in generating subject: %s", e)
