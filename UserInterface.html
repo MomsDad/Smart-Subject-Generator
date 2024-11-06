@@ -1,48 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- sets the character encoding for the document -->
     <meta charset="UTF-8">
+    <!-- sets the viewport for responsive design -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- title of the document that appears in the browser tab -->
     <title>Smart Subject Generator</title>
 </head>
 <body>
+    <!-- main heading of the application -->
     <h1>Smart Subject Generator</h1>
+    <!-- form to collect email content input from the user -->
     <form id="subjectForm">
+        <!-- label for the email content textarea -->
         <label for="emailContent">Enter Email Content:</label><br><br>
+        <!-- textarea for the user to input the email content -->
         <textarea id="emailContent" name="content" rows="4" cols="50"></textarea><br><br>
+        <!-- button to trigger the subject line generation -->
         <button type="button" onclick="generateSubject()">Generate Subject Lines</button>
     </form>
+    <!-- section for displaying generated subject suggestions -->
     <h3>Generated Subject Suggestions:</h3>
+    <!-- unordered list to hold the generated suggestions -->
     <ul id="suggestions"></ul>
 
     <script>
+        // async function to handle subject generation by sending a request to the backend
         async function generateSubject() {
+            // retrieves the email content entered by the user
             const emailContent = document.getElementById('emailContent').value;
             try {
+                // sends a POST request to the backend API to generate subject lines
                 const response = await fetch("http://127.0.0.1:8000/generate", {
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json" // sets content type to JSON
                     },
-                    body: JSON.stringify({ content: emailContent })
+                    body: JSON.stringify({ content: emailContent }) // sends email content in the request body
                 });
+                // parses the JSON response from the server
                 const data = await response.json();
 
-                console.log("Response Data:", data);
+                console.log("Response Data:", data); // logs the response data to the console for debugging
 
+                // selects the suggestions list element and clears any previous suggestions
                 const suggestionsList = document.getElementById('suggestions');
                 suggestionsList.innerHTML = ""; // clear previous suggestions
 
+                // checks if there are any suggestions in the response and displays them
                 if (data.suggestions && data.suggestions.length > 0) {
                     data.suggestions.forEach(suggestion => {
-                        const listItem = document.createElement("li");
-                        listItem.textContent = suggestion;
-                        suggestionsList.appendChild(listItem);
+                        const listItem = document.createElement("li"); // creates a new list item
+                        listItem.textContent = suggestion; // sets the suggestion text
+                        suggestionsList.appendChild(listItem); // appends the suggestion to the list
                     });
                 } else {
+                    // displays a message if no suggestions were generated
                     suggestionsList.innerHTML = "<li>No suggestions generated.</li>";
                 }
             } catch (error) {
+                // logs any errors that occur during the fetch request
                 console.error("Error fetching suggestions:", error);
             }
         }
