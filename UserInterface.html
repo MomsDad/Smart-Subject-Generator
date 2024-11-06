@@ -31,7 +31,7 @@
                 console.log("Response Data:", data);
 
                 const suggestionsList = document.getElementById('suggestions');
-                suggestionsList.innerHTML = ""; // Clear previous suggestions
+                suggestionsList.innerHTML = ""; // clear previous suggestions
 
                 if (data.suggestions && data.suggestions.length > 0) {
                     data.suggestions.forEach(suggestion => {
