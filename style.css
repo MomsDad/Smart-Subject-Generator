@@ -1,0 +1,99 @@
+/* this file changes font type/color/size, as well as background color/gradients. Please everyone on the team make sure its looks and perfroms on live server on my end all good*/
+
+/* title: Smart Subject Generator */
+h1 { 
+    font-size: 2.5em; /* How big the text is, the color, and thickness of the letters */
+    color: #FFFFF0;
+    font-weight: bold;
+}
+
+/* header: "Please enter your email content in the text box below:" */
+h3 {
+    font-size: 1em; /* The same description for h1 */
+    color: #FFFFF0;
+    font-weight: lighter; 
+}
+
+/* background color, input text-area/text-box, etc. */
+
+/* center and organize body content */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* change from center to flex-start I USED https://www.w3schools.com/css/css3_flexbox_container.asp*/
+    min-height: 100vh;
+    background-image: linear-gradient(to right, #ddeeef, #b1c0f1, #cbe0f0);
+    font-family: Helvetica;
+    font-size: 1.5em;
+    color: #FFFFF0;
+    font-weight: lighter;
+    text-align: center;
+    padding-top: 20px; /* add padding to separate content from the top */
+}
+
+/* main container styling */
+#main-container {
+    width: 80%; /* adjust the width as needed */
+    margin: 0 auto; /* center the container */
+    margin-bottom: 20px; /* add spacing between containers */
+    text-align: center; /* center-align content within */
+}
+/* the user's input */
+#emailContent {
+    width: 80%; /* this makes text box sizing consistent (ref. main-container) */
+}
+
+/* input text box height/sizing */
+textarea {
+    height: 80px; /* adjust the height of input text box */
+}
+
+/* THIS THE Green Button */
+button {
+    background-color: #88E788; /* button color, font, font-size/color/thickness, soften edges*/
+    font-family: Roboto;
+    font-size: 1.40em; 
+    color: #FFFFF0;
+    font-weight: lighter;
+    border-radius: 20px; 
+    border: none; /* buttons do NOT need any borders */
+}
+
+/* clear/reset Red Button */
+/* nth-of-type - psuedo class to distinct the two buttons apart */
+/* ref. https://developer.mozilla.org/en-US/docs/Web/CSS/:nth-of-type */ 
+button:nth-of-type(2) {
+    background-color: #ed5855; 
+    font-family: Roboto;
+    font-size: 1.40em; 
+    color: #FFFFF0;
+    font-weight: lighter;
+    border-radius: 20px; 
+    border: none; 
+}
+
+/* output box styling */
+#output-box {
+    width: 80%; /* adjust the width as needed */
+    max-width: 800px; 
+    border-radius: 15px;
+    background-color: #ffffff;
+    height: 200px;
+    overflow-y: auto;
+    padding: 10px;
+    margin: 20px auto; /* cnter the box horizontally */
+    display: block; 
+}
+/* use helvetica cause looks good*/
+/* style for suggestions list inside the output box */
+#suggestions {
+    font-family: Helvetica;
+    color: rgb(0, 0, 0);
+    list-style-type: none;
+    padding-left: 0;
+    font-size: 1em;
+    margin: 0;
+    text-align: left; /* align text to the left */
+}
+

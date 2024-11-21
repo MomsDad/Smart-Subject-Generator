@@ -69,3 +69,5 @@ async def generate_subject(email_body: EmailBody):
     # split the `text` field by newline to create a list of suggestions
     subject_suggestions = [line.strip() for line in result["text"].split("\n") if line.strip()]
     return {"suggestions": subject_suggestions}
+
+#Work on Backend Clear DONE and color and container fitting

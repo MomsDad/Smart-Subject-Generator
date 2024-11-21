@@ -1,69 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- sets the character encoding for the document -->
+    <!-- utf-8 is character encoding to show a web page to user -->
     <meta charset="UTF-8">
-    <!-- sets the viewport for responsive design -->
+    <!-- viewport changes the size of the site based on user's device(s) -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- title of the document that appears in the browser tab -->
+    <!-- call browser title project name -->
     <title>Smart Subject Generator</title>
+    <!-- create stylesheet to change up font, bg color, etc -->
+    <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
-    <!-- main heading of the application -->
-    <h1>Smart Subject Generator</h1>
-    <!-- form to collect email content input from the user -->
+    <!-- Subject Generator Title/Header -->
+    <h1>Smart Subject Generator 📧</h1>
+
+    <!-- I used this to center the website's contents -->
+    <div id="main-container"> 
+
+    <!-- textbox/form to gather input from user -->
     <form id="subjectForm">
-        <!-- label for the email content textarea -->
-        <label for="emailContent">Enter Email Content:</label><br><br>
-        <!-- textarea for the user to input the email content -->
+        <!-- write the instructions for user to enter input into text-box -->
+        <label for="emailContent">Please enter your email content in the text box below:</label><br><br>
+        <!-- text box for user input -->
         <textarea id="emailContent" name="content" rows="4" cols="50"></textarea><br><br>
-        <!-- button to trigger the subject line generation -->
-        <button type="button" onclick="generateSubject()">Generate Subject Lines</button>
-    </form>
-    <!-- section for displaying generated subject suggestions -->
-    <h3>Generated Subject Suggestions:</h3>
-    <!-- unordered list to hold the generated suggestions -->
-    <ul id="suggestions"></ul>
+        <!-- Make button style to generate subject lines -->
+        <button type="button" onclick="generateSubject()">Generate Subject Lines ✏️</button>
+        <!-- Make button style to clear input text box -->
+    
+        <!-- TODO: DONE PREV Change function to clear text box  --> 
+        <button type="button" onclick="clearInput()">Clear 🗑️</button> 
+
+        </form>
+    </div> 
+
+        <!-- This is for the output box (list of created suggestions)-->
+        <div id="main-container">
+            <div id="output-box">
+                <ul id="suggestions"></ul>
+            </div>
+        </div>
 
     <script>
-        // async function to handle subject generation by sending a request to the backend
+        // async function sends request to backend
+        // lets program handle creating subject lines can be a longer task & still responsive to other things
         async function generateSubject() {
-            // retrieves the email content entered by the user
+            // grab the input user entered into text-area/text-box
             const emailContent = document.getElementById('emailContent').value;
             try {
-                // sends a POST request to the backend API to generate subject lines
+                // sed POST request to backend API to create the lines
+                // posT request - Ability to send any data to any server
                 const response = await fetch("http://127.0.0.1:8000/generate", {
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/json" // sets content type to JSON
+                        // convert content into JSON format
+                        "Content-Type": "application/json" 
                     },
-                    body: JSON.stringify({ content: emailContent }) // sends email content in the request body
+                    // send newly formatted content into the request body
+                    body: JSON.stringify({ content: emailContent })
                 });
-                // parses the JSON response from the server
+                // parse the JSON formatted response given from the server 
+                // parsing - breaking up characters in a string to further understand it
                 const data = await response.json();
+                
+                // log/document the parsed data to debug 
+                console.log("Response Data:", data);
 
-                console.log("Response Data:", data); // logs the response data to the console for debugging
-
-                // selects the suggestions list element and clears any previous suggestions
+                // choose the 'suggestions' list element
                 const suggestionsList = document.getElementById('suggestions');
-                suggestionsList.innerHTML = ""; // clear previous suggestions
+                // erase the last suggestions generated
+                suggestionsList.innerHTML = "";
 
-                // checks if there are any suggestions in the response and displays them
+                // if suggestions > 0 (meaning they exist), display it
                 if (data.suggestions && data.suggestions.length > 0) {
                     data.suggestions.forEach(suggestion => {
-                        const listItem = document.createElement("li"); // creates a new list item
-                        listItem.textContent = suggestion; // sets the suggestion text
-                        suggestionsList.appendChild(listItem); // appends the suggestion to the list
+                        // create a new list item
+                        const listItem = document.createElement("li"); 
+                        // create the suggestion text 
+                        listItem.textContent = suggestion; 
+                        // apply the suggestion into the list
+                        suggestionsList.appendChild(listItem); 
                     });
                 } else {
-                    // displays a message if no suggestions were generated
-                    suggestionsList.innerHTML = "<li>No suggestions generated.</li>";
+
+                    //can be taken out I mean I just added for the errors
+                    suggestionsList.innerHTML = "<li>ERROR! No suggestions generated. Try again!</li>";
                 }
             } catch (error) {
-                // logs any errors that occur during the fetch request
+                // document any problems during fetching request
                 console.error("Error fetching suggestions:", error);
             }
         }
+        function clearInput() {
+    // clear the content in the textarea
+    document.getElementById('emailContent').value = '';
+    // clear the list of suggestions
+    document.getElementById('suggestions').innerHTML = '';
+}
     </script>
+    <!-- STILL TODO: please lets work on the style.css file so it looks cools! --> 
 </body>
-</html>
